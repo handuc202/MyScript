@@ -266,184 +266,27 @@ echo:
 echo:
 echo:       ______________________________________________________________
 echo:
-echo:                 Activation Methods:
+echo:                 Duong Han Nguyen | Hello you...
 echo:
 echo:             [1] HWID        ^|  Windows           ^|   Permanent
 echo:             [2] Ohook       ^|  Office            ^|   Permanent
 echo:             [3] KMS38       ^|  Windows           ^|   Year 2038
 echo:             [4] Online KMS  ^|  Windows / Office  ^|    180 Days
-echo:             __________________________________________________      
-echo:
 echo:             [5] Activation Status
-echo:             [6] Troubleshoot
-echo:             [7] Extras
-echo:             [8] Help
 echo:             [0] Exit
 echo:       ______________________________________________________________
 echo:
-call :_color2 %_White% "          " %_Green% "Enter a menu option in the Keyboard [1,2,3,4,5,6,7,8,0] :"
-choice /C:123456780 /N
+call :_color2 %_White% "          " %_Green% "Enter a menu option in the Keyboard [1,2,3,4,5,0] :"
+choice /C:123450 /N
 set _erl=%errorlevel%
 
 if %_erl%==9 exit /b
-if %_erl%==8 start %mas%troubleshoot.html & goto :MainMenu
-if %_erl%==7 goto:Extras
-if %_erl%==6 setlocal & call :troubleshoot      & cls & endlocal & goto :MainMenu
 if %_erl%==5 setlocal & call :_Check_Status_wmi & cls & endlocal & goto :MainMenu
 if %_erl%==4 setlocal & call :KMSActivation     & cls & endlocal & goto :MainMenu
 if %_erl%==3 setlocal & call :KMS38Activation   & cls & endlocal & goto :MainMenu
 if %_erl%==2 setlocal & call :OhookActivation   & cls & endlocal & goto :MainMenu
 if %_erl%==1 setlocal & call :HWIDActivation    & cls & endlocal & goto :MainMenu
 goto :MainMenu
-
-::========================================================================================================================================
-
-:Extras
-
-cls
-title  Extras
-mode 76, 30
-echo:
-echo:
-echo:
-echo:
-echo:
-echo:       ______________________________________________________________
-echo:
-echo:             [1] Change Windows Edition
-echo:
-echo:             [2] Extract $OEM$ Folder
-echo:
-echo:             [3] Activation Status [vbs]
-echo:
-echo:             [4] Download Genuine Windows / Office
-echo:             __________________________________________________      
-echo:                                                                     
-echo:             [0] Go to Main Menu
-echo:       ______________________________________________________________
-echo:
-call :_color2 %_White% "           " %_Green% "Enter a menu option in the Keyboard [1,2,3,4,0] :"
-choice /C:12340 /N
-set _erl=%errorlevel%
-
-if %_erl%==5 goto :MainMenu
-if %_erl%==4 start %mas%genuine-installation-media.html & goto :Extras
-if %_erl%==3 setlocal & call :_Check_Status_vbs & cls & endlocal & goto :Extras
-if %_erl%==2 goto:Extract$OEM$
-if %_erl%==1 setlocal & call :change_edition    & cls & endlocal & goto :Extras
-goto :Extras
-
-::========================================================================================================================================
-
-:Extract$OEM$
-
-cls
-title  Extract $OEM$ Folder
-mode 76, 30
-
-if not exist "!_desktop_!\" (
-%eline%
-echo Desktop location was not detected, aborting...
-echo _____________________________________________________
-echo:
-call :_color %_Yellow% "Press any key to go back..."
-pause >nul
-goto Extras
-)
-
-if exist "!_desktop_!\$OEM$\" (
-%eline%
-echo $OEM$ folder already exists on the Desktop.
-echo _____________________________________________________
-echo:
-call :_color %_Yellow% "Press any key to go back..."
-pause >nul
-goto Extras
-)
-
-:Extract$OEM$2
-
-cls
-title  Extract $OEM$ Folder
-mode 78, 30
-echo:
-echo:
-echo:
-echo:
-echo:                     Extract $OEM$ folder on the desktop           
-echo:           ________________________________________________________
-echo:
-echo:              [1] HWID
-echo:              [2] Ohook
-echo:              [3] KMS38
-echo:              [4] Online KMS
-echo:
-echo:              [5] HWID       ^(Windows^) ^+ Ohook      ^(Office^)
-echo:              [6] HWID       ^(Windows^) ^+ Online KMS ^(Office^)
-echo:              [7] KMS38      ^(Windows^) ^+ Ohook      ^(Office^)
-echo:              [8] KMS38      ^(Windows^) ^+ Online KMS ^(Office^)
-echo:              [9] Online KMS ^(Windows^) ^+ Ohook      ^(Office^)
-echo:
-call :_color2 %_White% "              [R] " %_Green% "ReadMe"
-echo:              [0] Go Back
-echo:           ________________________________________________________
-echo:  
-call :_color2 %_White% "           " %_Green% "Enter a menu option in the Keyboard:"
-choice /C:123456789R0 /N
-set _erl=%errorlevel%
-
-if %_erl%==11 goto:Extras
-if %_erl%==10 start %mas%oem-folder.html &goto:Extract$OEM$2
-if %_erl%==9 (set "_oem=Online KMS [Windows] + Ohook [Office]" & set "para=/KMS-ActAndRenewalTask /KMS-Windows /Ohook" &goto:Extract$OEM$3)
-if %_erl%==8 (set "_oem=KMS38 [Windows] + Online KMS [Office]" & set "para=/KMS38 /KMS-ActAndRenewalTask /KMS-Office" &goto:Extract$OEM$3)
-if %_erl%==7 (set "_oem=KMS38 [Windows] + Ohook [Office]" & set "para=/KMS38 /Ohook" &goto:Extract$OEM$3)
-if %_erl%==6 (set "_oem=HWID [Windows] + Online KMS [Office]" & set "para=/HWID /KMS-ActAndRenewalTask /KMS-Office" &goto:Extract$OEM$3)
-if %_erl%==5 (set "_oem=HWID [Windows] + Ohook [Office]" & set "para=/HWID /Ohook" &goto:Extract$OEM$3)
-if %_erl%==4 (set "_oem=Online KMS" & set "para=/KMS-ActAndRenewalTask /KMS-WindowsOffice" &goto:Extract$OEM$3)
-if %_erl%==3 (set "_oem=KMS38" & set "para=/KMS38" &goto:Extract$OEM$3)
-if %_erl%==2 (set "_oem=Ohook" & set "para=/Ohook" &goto:Extract$OEM$3)
-if %_erl%==1 (set "_oem=HWID" & set "para=/HWID" &goto:Extract$OEM$3)
-goto :Extract$OEM$2
-
-::========================================================================================================================================
-
-:Extract$OEM$3
-
-cls
-set "_dir=!_desktop_!\$OEM$\$$\Setup\Scripts"
-md "!_dir!\"
-copy /y /b "!_batf!" "!_dir!\MAS_AIO.cmd" %nul%
-
-(
-echo @echo off
-echo fltmc ^>nul ^|^| exit /b
-echo call "%%~dp0MAS_AIO.cmd" %para%
-echo cd \
-echo ^(goto^) 2^>nul ^& ^(if "%%~dp0"=="%%SystemRoot%%\Setup\Scripts\" rd /s /q "%%~dp0"^)
-)>"!_dir!\SetupComplete.cmd"
-
-set _error=
-if not exist "!_dir!\MAS_AIO.cmd" set _error=1
-if not exist "!_dir!\SetupComplete.cmd" set _error=1
-
-if defined _error (
-%eline%
-echo Failed to extract $OEM$ folder on the Desktop.
-) else (
-echo:
-call :_color %Blue% "%_oem%"
-call :_color %Green% "$OEM$ folder is successfully created on the Desktop."
-)
-echo "%_oem%" | find /i "KMS38" 1>nul && (
-echo:
-echo To KMS38 activate Server Cor/Acor editions ^(No GUI Versions^),
-echo Check this page %mas%oem-folder
-)
-echo ___________________________________________________________________
-echo:
-call :_color %_Yellow% "Press any key to go back..."
-pause >nul
-goto Extras
 
 :+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 

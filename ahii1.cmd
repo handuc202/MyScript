@@ -4,14 +4,10 @@
 
 
 
-::  For command line switches, check mass grave [.] dev/command_line_switches.html
-::  If you want to better understand script, read from MAS separate files version. 
-
-
 ::============================================================================
 ::
-::   Homepage: mass grave [.] dev
-::      Email: windowsaddict@protonmail.com
+::   				Tools By Han Nguyen
+::      		Email: hacknasa202@gmail.com
 ::
 ::============================================================================
 

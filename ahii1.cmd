@@ -276,6 +276,7 @@ echo:             [5] Activation Status
 echo:             [0] Exit
 echo:       ______________________________________________________________
 echo:
+
 call :_color2 %_White% "          " %_Green% "Enter a menu option in the Keyboard [1,2,3,4,5,0] :"
 choice /C:123450 /N
 set _erl=%errorlevel%
@@ -286,6 +287,7 @@ if %_erl%==4 setlocal & call :KMSActivation     & cls & endlocal & goto :MainMen
 if %_erl%==3 setlocal & call :KMS38Activation   & cls & endlocal & goto :MainMenu
 if %_erl%==2 setlocal & call :OhookActivation   & cls & endlocal & goto :MainMenu
 if %_erl%==1 setlocal & call :HWIDActivation    & cls & endlocal & goto :MainMenu
+
 goto :MainMenu
 
 :+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

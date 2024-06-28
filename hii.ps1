@@ -4,8 +4,8 @@ $ErrorActionPreference = "Stop"
 # Enable TLSv1.2 for compatibility with older clients for current session
 [Net.ServicePointManager]::SecurityProtocol=[Net.SecurityProtocolType]::Tls12
 
-$DownloadURL1 = 'https://raw.githubusercontent.com/handuc202/MyScript/main/ahii1.cmd'
-$DownloadURL2 = 'https://raw.githubusercontent.com/handuc202/MyScript/main/ahii2.cmd'
+$DownloadURL1 = 'https://raw.githubusercontent.com/handuc202/MyScript/main/hii1.bat'
+$DownloadURL2 = 'https://raw.githubusercontent.com/handuc202/MyScript/main/hii2.bat'
 
 $URLs = @($DownloadURL1, $DownloadURL2)
 $RandomURL1 = Get-Random -InputObject $URLs
